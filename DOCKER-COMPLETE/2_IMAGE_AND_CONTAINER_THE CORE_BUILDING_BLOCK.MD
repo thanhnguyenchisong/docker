@@ -9,7 +9,7 @@ After finish the DOCKER file.
 docker build . -t nodeapp:v1
 <!-- docker image ls to check the image in our local -->
 2. Docker run
-docker run -p 3000:80 nodeapp:v1
+``` docker run -p 3000:80 nodeapp:v1 ```
 <!-- docker ps to check running containers -->
 
 
@@ -21,8 +21,7 @@ docker run -p 3000:80 nodeapp:v1
 
  For our Dockerfile. we have COPY package.json to /app first because we don't alaways change the libs in package.json, most of the change from source code on app. So step from head to RUN npm install will reload from cache so it can save time.
 
-
-# Managing Images & Containers.
+## Managing Images & Containers.
  Can you docker --help to see all options
  1. Image
  docker -t
@@ -31,7 +30,7 @@ docker run -p 3000:80 nodeapp:v1
  docker rmi
  docker prune
  2. Container
- docker rm
+ docker rm 
  docker ps
  docker ps -a
  docker start
@@ -50,4 +49,15 @@ docker run -p 3000:80 nodeapp:v1
 So combite -it we can interact with container with current terminal 
 **Example** input a value for some specific logic applications - input 10, 5 in termial and do the comparision or long running process after input
 
-
+# Remove
+docker rmi IMAGE   => remove a specific image.
+docker image prune => remove unused image
+docker --rm run .... => auto remove the container after stop
+docker rm CONTAINER
+# Inspect a image & importain information
+docker image inspect IMAGE
+- Id : id of image.
+- ExposePorts : ports can be used
+- ENTRYPOINT: default command to run when start container
+- Docker version
+- Os
