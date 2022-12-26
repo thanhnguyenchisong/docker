@@ -61,3 +61,23 @@ docker image inspect IMAGE
 - ENTRYPOINT: default command to run when start container
 - Docker version
 - Os
+
+# Copy content vm and containers.
+docker cp : to copy something to in/out contaiers.
+
+# Naming & Tagging Containers and Images
+--name : option to set container name
+-t/--tag : format name:tag to set the name and version of image
+
+# Sharing images & containers
+1. Share Dockerfile
+2. Shere a Built Image - push image to docker hub or private registry
+
+# Push/pull to docker hub
+docker push IMAGE_NAME
+docker pull IMAGE_NAME
+'
+To push correct registy the name of image should be <registry>/IMAGE_NAME:version
+if it is not correct name, we can use the cmd: docker tag IMAGE_NAME:version <registry>/IMAGE_NAME:version to clone to the new name.
+After that we can push correct image to registry by docker push <registry>/IMAGE_NAME:version 
+Note: Have login with <sup>docker login link<sup>
