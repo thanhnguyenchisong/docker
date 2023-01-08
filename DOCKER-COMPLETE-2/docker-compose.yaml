@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  mongodb:
+    image: 'mongo'
+    volumes:
+      - data:/data/db
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=thanh
+    #   - MONGO_INITDB_ROOT_PASSWORD=secret\
+    container_name: mongodb
+    env_file:
+      - ./env/mongo.env
+    # networks:
+    #   - goals
+    #  Don't need specify network because all services in a docker with auto work in a network
+  backend:
+    build: ./backend
+    # build: 
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    #   args:
+    #     - arg1
+    #     - arg2
+    # depend on your, you can use format 1 or 2
+
+    ports: # List as a list ports.
+       - '80:80'
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app
+      - /app/node_mudules
+    container_name: goals-be
+    env_file:
+      - ./env/backend.env
+    depends_on: # because the BE need to connect to mongodb
+      - mongodb
+  frontend:
+    build: ./fontend
+    ports:
+      -'8080:8080'
+    volumes:
+      - ./fontend/src:/app/src
+    container_name: goals-fe
+    stdin_open: true # for development only  this is for -it option
+    tty: true
+    depends_on:
+      - backend
+
+volumes: # all volumes in services should be listed here
+  data:
+  logs:
